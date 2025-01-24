@@ -1,5 +1,6 @@
 package com.darkbladedev.commands;
 
+import com.darkbladedev.storage.IDStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -16,30 +17,35 @@ public class CreateCommand implements CommandExecutor {
 
     private static final Map<String, Location> pointsOfInterest = new HashMap<>();
     private static Player player;
+    private final IDStorage idStorage;
+
+    public CreateCommand(IDStorage idStorage) {
+        this.idStorage = idStorage;
+    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length < 4) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Solo los jugadores pueden usar este comando.");
+            return false;
+        }
+
+        if (args.length < 3) {
             sender.sendMessage("Uso: /bellion create-point <ID> <type> <position> [world] [name]");
             return false;
         }
 
+        Player player = (Player) sender;
         String id = args[0];
         String type = args[1];
         String position = args[2];
         String name = args.length > 4 ? args[4] : "Punto de interes";
-        String playerWorld = args.length > 5 ? args[5] : ((Player) sender).getWorld().getName();
+        String playerWorld = args.length > 5 ? args[5] : player.getWorld().getName();
 
         Location loc = null;
 
         if (type.equalsIgnoreCase("current")) {
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                loc = player.getLocation();
-            } else {
-                sender.sendMessage("Solo los jugadores pueden usar su ubicación actual.");
-                return false;
-            }
+            loc = player.getLocation();
         } else if (type.equalsIgnoreCase("specific")) {
             String[] posArray = position.split(",");
             if (posArray.length == 3) {
@@ -47,31 +53,21 @@ public class CreateCommand implements CommandExecutor {
                     double x = Double.parseDouble(posArray[0]);
                     double y = Double.parseDouble(posArray[1]);
                     double z = Double.parseDouble(posArray[2]);
-
-                    World world = Bukkit.getWorld(playerWorld);
-
-                    if (world != null) {
-                        loc = new Location(world, x, y, z);
-                    } else {
-                        sender.sendMessage("El mundo especificado no existe.");
-                        return false;
-                    }
+                    loc = new Location(player.getWorld(), x, y, z);
                 } catch (NumberFormatException e) {
-                    sender.sendMessage("La posición debe estar en el formato x,y,z con números válidos.");
+                    sender.sendMessage("Posición inválida.");
                     return false;
                 }
             } else {
-                sender.sendMessage("La posición debe estar en el formato x,y,z.");
+                sender.sendMessage("Posición inválida.");
                 return false;
             }
-        } else {
-            sender.sendMessage("Tipo de ubicación no válido. Usa 'current' o 'specific'.");
-            return false;
         }
 
         if (loc != null) {
-            pointsOfInterest.put(id, loc);
-            sender.sendMessage("Punto de interés '" + id + "' creado en la posición " + loc.toString() + ".");
+            // Guarda el ID en el archivo
+            idStorage.addPlayerID(player.getUniqueId(), id);
+            sender.sendMessage("Punto de interés creado con ID: " + id);
         }
 
         return true;

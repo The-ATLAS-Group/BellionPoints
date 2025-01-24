@@ -9,19 +9,23 @@ import com.darkbladedev.commands.CreateCommand;
 import com.darkbladedev.commands.LocateCommand;
 import com.darkbladedev.commands.DeleteCommand;
 import com.darkbladedev.commands.TeleportCommand;
+import com.darkbladedev.commands.CommandTabCompleter;
+import com.darkbladedev.storage.IDStorage;
 
 public class BellionPointsMain extends JavaPlugin {
-    
+    private IDStorage idStorage;
+
     @Override
     public void onEnable() {
+        idStorage = new IDStorage(getDataFolder());
 
         registerCommands();
 
         getLogger().info("BellionPoints has been enabled!");
-    
+
         Plugin executableBlocks;
         executableBlocks = Bukkit.getPluginManager().getPlugin("ExecutableBlocks");
-        if(executableBlocks != null && executableBlocks.isEnabled()) {
+        if (executableBlocks != null && executableBlocks.isEnabled()) {
             getServer().getLogger().info("[BellionPoints] ExecutableBlocks hooked !");
         }
     }
@@ -33,9 +37,12 @@ public class BellionPointsMain extends JavaPlugin {
 
     public void registerCommands() {
         getCommand("bellion").setExecutor(new InfoCommand());
-        getCommand("bellion create-point").setExecutor(new CreateCommand());
+        getCommand("bellion create-point").setExecutor(new CreateCommand(idStorage));
         getCommand("bellion locate").setExecutor(new LocateCommand());
         getCommand("bellion delete-point").setExecutor(new DeleteCommand());
         getCommand("bellion teleport").setExecutor(new TeleportCommand());
+
+        // Register the tab completer
+        getCommand("bellion").setTabCompleter(new CommandTabCompleter());
     }
 }
