@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.darkbladedev.commands.CommandListener;
 import com.darkbladedev.commands.CreateCommand;
 import com.darkbladedev.commands.LocateCommand;
+import com.darkbladedev.commands.DeleteCommand;
+import com.darkbladedev.commands.TeleportCommand;
 
 public class BellionPointsMain extends JavaPlugin {
     
@@ -33,5 +35,7 @@ public class BellionPointsMain extends JavaPlugin {
         getCommand("bellion").setExecutor(new CommandListener());
         getCommand("bellion create-point").setExecutor(new CreateCommand());
         getCommand("bellion locate").setExecutor(new LocateCommand());
+        getCommand("bellion delete-point").setExecutor(new DeleteCommand());
+        getCommand("bellion teleport").setExecutor(new TeleportCommand());
     }
 }
