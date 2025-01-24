@@ -1,0 +1,14 @@
+main: com.darkbladedev.BellionPointsMain
+name: BellionPoints
+version: '1.1-SNAPSHOT'
+description: Añade un sistema de waystones para tu servidor.
+load: STARTUP
+api-version: 1.19
+author: DarkBladeDev
+prefix: BellionPoints
+softdepend: [ExecutableBlocks, SCore]
+commands:
+  bellionpoints:
+    description: Comando principal de ayuda del plugin.
+    aliases: [bp, bellion]
+    usage: "Usage: /bellionpoints [create | delete | locate]"
