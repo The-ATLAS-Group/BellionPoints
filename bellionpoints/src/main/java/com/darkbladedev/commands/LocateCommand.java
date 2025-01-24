@@ -11,12 +11,12 @@ public class LocateCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length < 2) {
+        if (args.length < 1) {
             sender.sendMessage("Uso: /bellion locate <ID>");
             return false;
         }
 
-        String id = args[1];
+        String id = args[0];
         Player player = (Player) sender;
         Location loc = CreateCommand.getPointOfInterest(id);
 

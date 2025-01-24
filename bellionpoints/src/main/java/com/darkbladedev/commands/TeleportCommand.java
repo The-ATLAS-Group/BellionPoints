@@ -11,13 +11,13 @@ public class TeleportCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length < 3) {
+        if (args.length < 2) {
             sender.sendMessage("Uso: /bellion teleport <player> <ID>");
             return false;
         }
 
-        String playerName = args[1];
-        String id = args[2];
+        String playerName = args[0];
+        String id = args[1];
         Player player = sender.getServer().getPlayer(playerName);
         Location loc = CreateCommand.getPointOfInterest(id);
 
