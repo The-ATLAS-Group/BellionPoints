@@ -1,4 +1,4 @@
-package com.darkbladedev.commands;
+package com.darkbladedev;
 
 import com.darkbladedev.storage.IDStorage;
 import org.bukkit.command.Command;

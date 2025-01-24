@@ -1,7 +1,6 @@
 package com.darkbladedev.commands;
 
 import com.darkbladedev.storage.IDStorage;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -16,7 +15,6 @@ import java.util.Map;
 public class CreateCommand implements CommandExecutor {
 
     private static final Map<String, Location> pointsOfInterest = new HashMap<>();
-    private static Player player;
     private final IDStorage idStorage;
 
     public CreateCommand(IDStorage idStorage) {
@@ -40,12 +38,17 @@ public class CreateCommand implements CommandExecutor {
         String type = args[1];
         String position = args[2];
         String name = args.length > 4 ? args[4] : "Punto de interes";
-        String playerWorld = args.length > 5 ? args[5] : player.getWorld().getName();
-
+        
         Location loc = null;
+        Location coords = null;
 
         if (type.equalsIgnoreCase("current")) {
-            loc = player.getLocation();
+            coords = player.getLocation();
+            World world = player.getWorld();
+
+            loc = new Location(world, coords.getX(), coords.getY(), coords.getZ());
+
+
         } else if (type.equalsIgnoreCase("specific")) {
             String[] posArray = position.split(",");
             if (posArray.length == 3) {
@@ -66,7 +69,7 @@ public class CreateCommand implements CommandExecutor {
 
         if (loc != null) {
             // Guarda el ID en el archivo
-            idStorage.addPlayerID(player.getUniqueId(), id);
+            idStorage.addPlayerData(player.getUniqueId(), id, name);
             sender.sendMessage("Punto de interés creado con ID: " + id);
         }
 

@@ -9,7 +9,6 @@ import com.darkbladedev.commands.CreateCommand;
 import com.darkbladedev.commands.LocateCommand;
 import com.darkbladedev.commands.DeleteCommand;
 import com.darkbladedev.commands.TeleportCommand;
-import com.darkbladedev.commands.CommandTabCompleter;
 import com.darkbladedev.storage.IDStorage;
 
 public class BellionPointsMain extends JavaPlugin {
@@ -43,6 +42,6 @@ public class BellionPointsMain extends JavaPlugin {
         getCommand("bellion teleport").setExecutor(new TeleportCommand());
 
         // Register the tab completer
-        getCommand("bellion").setTabCompleter(new CommandTabCompleter());
+        getCommand("bellion").setTabCompleter(new CommandTabCompleter(idStorage));
     }
 }
