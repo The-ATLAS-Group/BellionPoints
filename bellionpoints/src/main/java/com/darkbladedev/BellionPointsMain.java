@@ -4,13 +4,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.darkbladedev.commands.CommandListener;
+import com.darkbladedev.commands.CreateCommand;
+import com.darkbladedev.commands.LocateCommand;
 
 public class BellionPointsMain extends JavaPlugin {
     
     @Override
     public void onEnable() {
+
+        registerCommands();
+
         getLogger().info("BellionPoints has been enabled!");
-        
     
         Plugin executableBlocks;
         executableBlocks = Bukkit.getPluginManager().getPlugin("ExecutableBlocks");
@@ -22,5 +27,11 @@ public class BellionPointsMain extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("BellionPoints has been disabled!");
+    }
+
+    public void registerCommands() {
+        getCommand("bellion").setExecutor(new CommandListener());
+        getCommand("bellion create-point").setExecutor(new CreateCommand());
+        getCommand("bellion locate").setExecutor(new LocateCommand());
     }
 }

@@ -8,7 +8,7 @@ author: DarkBladeDev
 prefix: BellionPoints
 softdepend: [ExecutableBlocks, SCore]
 commands:
-  bellionpoints:
+  bellion:
     description: Comando principal de ayuda del plugin.
-    aliases: [bp, bellion]
-    usage: "Usage: /bellionpoints [create | delete | locate]"
+    aliases: [bp, bellionpoints]
+    usage: "Usage: /bellion [create-point | delete-point | locate | teleport]"
