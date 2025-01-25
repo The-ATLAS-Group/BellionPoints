@@ -27,14 +27,6 @@
     </repositories>
 
     <dependencies>
-
-        <dependency>
-            <groupId>de.garrus.maven</groupId>
-            <artifactId>minecraft-server-plugin</artifactId>
-            <version>1.0.3</version>
-            <type>maven-plugin</type>
-        </dependency>
-
         <!--This adds the Spigot API artifact to the build -->
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -121,4 +113,5 @@
         </dependencies>
 
     </dependencyManagement>
+
 </project>

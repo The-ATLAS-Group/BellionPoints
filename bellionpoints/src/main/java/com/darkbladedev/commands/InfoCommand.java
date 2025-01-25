@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 
 public class InfoCommand implements CommandExecutor {
 
-    String guide = 
+    public static String guide = 
             """
             -- GUIA DE BELLION POINTS --
             &fDescripción de BellionPoints:
@@ -25,7 +25,7 @@ public class InfoCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-    if (args[0].equalsIgnoreCase("help")) {   
+    if (args[0].equalsIgnoreCase("info")) {
 
       sender.sendMessage(MessageUtils.getColoredMessage(guide));
     }

@@ -24,3 +24,8 @@ replay_pid*
 
 # Target directory
 target/
+
+# Environment
+.vscode/*
+.vscode
+.vscode/settings.json

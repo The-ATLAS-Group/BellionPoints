@@ -15,6 +15,12 @@ public class BellionPointsMain extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        // Create the data folder if it doesn't exist
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdirs();
+        }
+
         idStorage = new IDStorage(getDataFolder());
 
         registerCommands();
