@@ -1,25 +1,16 @@
 main: com.darkbladedev.BellionPointsMain
 name: BellionPoints
-version: '1.3-SNAPSHOT'
-description: Añade un sistema de waystones para tu servidor.
+version: '1.3.1-SNAPSHOT'
+description: Añade un sistema de waypoints para tu servidor.
 load: STARTUP
 api-version: 1.19
 author: DarkBladeDev
 prefix: BellionPoints
 softdepend: [ExecutableBlocks, SCore]
 commands:
-  bellion info:
-    description: Muestra información sobre el plugin.
-    usage: "Usage: /bellion info"
-  bellion create-point:
-    description: Crea un punto de interés.
-    usage: "Usage: /bellion create-point <ID> <type> <position> [name]"
-  bellion delete-point:
-    description: Elimina un punto de interés.
-    usage: "Usage: /bellion delete-point <ID>"
-  bellion locate:
-    description: Localiza un punto de interés.
-    usage: "Usage: /bellion locate <ID>"
-  bellion teleport:
-    description: Teletransporta a un punto de interés.
-    usage: "Usage: /bellion teleport <player> <ID>"
+  bellion:
+    description: Comando principal de BellionPoints.
+    usage: "Usage: /bellion < info | create-point | delete-point | locate | teleport >"
+    aliases: [bp, bellionpoints]
+    permission: bellion.use
+    permission-message: "No tienes permiso para usar este comando."
