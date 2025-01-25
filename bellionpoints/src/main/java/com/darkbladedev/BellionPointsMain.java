@@ -6,10 +6,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
 import com.darkbladedev.commands.BellionCommand;
-import com.darkbladedev.storage.IDStorage;
+import com.darkbladedev.storage.StorageManager;
 
 public class BellionPointsMain extends JavaPlugin {
-    private IDStorage idStorage;
+    private StorageManager idStorage;
 
     public final String prefix = "&3[&cBellion &5Points&3]&a";
 
@@ -21,7 +21,7 @@ public class BellionPointsMain extends JavaPlugin {
             getDataFolder().mkdirs();
         }
 
-        idStorage = new IDStorage(getDataFolder());
+        idStorage = new StorageManager(getDataFolder());
 
         registerCommands();
 

@@ -1,7 +1,7 @@
 package com.darkbladedev;
 
 import com.darkbladedev.commands.InfoCommand;
-import com.darkbladedev.storage.IDStorage;
+import com.darkbladedev.storage.StorageManager;
 import com.darkbladedev.utils.MessageUtils;
 
 import org.bukkit.command.Command;
@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CommandTabCompleter implements TabCompleter {
 
-    private final IDStorage idStorage;
+    private final StorageManager idStorage;
 
-    public CommandTabCompleter(IDStorage idStorage) {
+    public CommandTabCompleter(StorageManager idStorage) {
         this.idStorage = idStorage;
     }
 
@@ -61,7 +61,7 @@ public class CommandTabCompleter implements TabCompleter {
                         // Add IDs for delete-point command
                         if (sender instanceof Player) {
                             Player player = (Player) sender;
-                            completions.addAll(idStorage.getPlayerIDs(player.getUniqueId()));
+                            completions.addAll(idStorage.getMonolithIDs(player.getName()));
                         }
                     }
 
@@ -71,8 +71,12 @@ public class CommandTabCompleter implements TabCompleter {
                 sender.getServer().getOnlinePlayers().forEach(player -> completions.add(player.getName()));
                 // Add IDs for the teleport command
                 if (sender instanceof Player) {
+
                     Player player = (Player) sender;
-                    completions.addAll(idStorage.getPlayerIDs(player.getUniqueId()));
+                    
+                    //String owner = idStorage.getMonolithOwner(player.getName());
+
+                    completions.addAll(idStorage.getMonolithIDs(player.getName()));
                 }
 
             } else if (args[0].equalsIgnoreCase("locate")) {
@@ -80,7 +84,7 @@ public class CommandTabCompleter implements TabCompleter {
                     // Add IDs for the locate command
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
-                        completions.addAll(idStorage.getMonolithIDs(player.getUniqueId()));
+                        completions.addAll(idStorage.getMonolithIDs(player.getName()));
                     }
                 }
             } else if (args.length == 0) {

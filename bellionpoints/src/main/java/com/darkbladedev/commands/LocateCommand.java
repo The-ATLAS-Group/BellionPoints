@@ -13,7 +13,7 @@ public class LocateCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length < 1) {
+        if (args.length < 2) {
             sender.sendMessage(MessageUtils.getColoredMessage("Uso: /bellion locate <ID>"));
             return false;
         }

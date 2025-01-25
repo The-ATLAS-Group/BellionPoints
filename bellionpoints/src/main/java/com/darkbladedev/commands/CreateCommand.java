@@ -1,6 +1,6 @@
 package com.darkbladedev.commands;
 
-import com.darkbladedev.storage.IDStorage;
+import com.darkbladedev.storage.StorageManager;
 import com.darkbladedev.utils.MessageUtils;
 
 import org.bukkit.Location;
@@ -17,9 +17,9 @@ import java.util.Map;
 public class CreateCommand implements CommandExecutor {
 
     private static final Map<String, Location> pointsOfInterest = new HashMap<>();
-    private final IDStorage idStorage;
+    private final StorageManager idStorage;
 
-    public CreateCommand(IDStorage idStorage) {
+    public CreateCommand(StorageManager idStorage) {
         this.idStorage = idStorage;
     }
 
@@ -73,8 +73,7 @@ public class CreateCommand implements CommandExecutor {
 
             if (loc != null) {
                 // Guarda el ID en el archivo
-                idStorage.addMonolithID(player.getUniqueId(), id);
-                idStorage.addPlayerData(player.getUniqueId(), id, name);
+                idStorage.saveMonolithData(player, id, loc, name);
                 sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
             }
 

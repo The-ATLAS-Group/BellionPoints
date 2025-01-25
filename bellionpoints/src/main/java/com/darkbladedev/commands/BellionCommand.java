@@ -1,6 +1,6 @@
 package com.darkbladedev.commands;
 
-import com.darkbladedev.storage.IDStorage;
+import com.darkbladedev.storage.StorageManager;
 import com.darkbladedev.utils.MessageUtils;
 
 import org.bukkit.command.Command;
@@ -9,9 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class BellionCommand implements CommandExecutor {
-    private final IDStorage idStorage;
+    private final StorageManager idStorage;
 
-    public BellionCommand(IDStorage idStorage) {
+    public BellionCommand(StorageManager idStorage) {
         this.idStorage = idStorage;
     }
 
