@@ -41,10 +41,14 @@ public class CommandTabCompleter implements TabCompleter {
                     
                     if (args[3].equalsIgnoreCase("specific") && sender instanceof Player) {
                         Player player = (Player) sender;
+                        if (args.length == 4) {
+                            completions.add(String.valueOf(player.getLocation().getBlockX()));
+                        } else if (args.length == 5) {
+                            completions.add(String.valueOf(player.getLocation().getBlockY()));
+                        } else if (args.length == 6) {
+                            completions.add(String.valueOf(player.getLocation().getBlockZ()));
+                        }
 
-                        completions.add(String.valueOf(player.getLocation().getBlockX()));
-                        completions.add(String.valueOf(player.getLocation().getBlockY()));
-                        completions.add(String.valueOf(player.getLocation().getBlockZ()));
                     }
                     
                 } else if (args.length == 4) {

@@ -5,7 +5,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
-import com.darkbladedev.commands.InfoCommand;
+import com.darkbladedev.commands.BellionCommand;
 import com.darkbladedev.storage.IDStorage;
 
 public class BellionPointsMain extends JavaPlugin {
@@ -43,7 +43,7 @@ public class BellionPointsMain extends JavaPlugin {
     }
 
     public void registerCommands() {
-        getCommand("bellion").setExecutor(new InfoCommand());
+        getCommand("bellion").setExecutor(new BellionCommand(idStorage));
 
         // Register the tab completer
         getCommand("bellion").setTabCompleter(new CommandTabCompleter(idStorage));
