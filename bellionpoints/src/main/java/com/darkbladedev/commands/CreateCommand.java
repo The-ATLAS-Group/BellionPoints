@@ -62,19 +62,20 @@ public class CreateCommand implements CommandExecutor {
                         double z = Double.parseDouble(posArray[2]);
                         loc = new Location(player.getWorld(), x, y, z);
                     } catch (NumberFormatException e) {
-                        sender.sendMessage(MessageUtils.getColoredMessage("Posición inválida."));
+                        sender.sendMessage(MessageUtils.getColoredMessage("&cPosición inválida."));
                         return false;
                     }
                 } else {
-                    sender.sendMessage(MessageUtils.getColoredMessage("Posición inválida."));
+                    sender.sendMessage(MessageUtils.getColoredMessage("&cPosición inválida."));
                     return false;
                 }
             }
 
             if (loc != null) {
                 // Guarda el ID en el archivo
+                idStorage.addMonolithID(player.getUniqueId(), id);
                 idStorage.addPlayerData(player.getUniqueId(), id, name);
-                sender.sendMessage(MessageUtils.getColoredMessage("Punto de interés creado con ID: " + id + "nombrado como:" + name));
+                sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
             }
 
             return true;

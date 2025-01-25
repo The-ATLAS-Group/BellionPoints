@@ -25,9 +25,9 @@ public class LocateCommand implements CommandExecutor {
 
             if (loc != null) {
                 player.sendMessage(MessageUtils.getColoredMessage("El punto de interés '" + id + "' está en la posición " + loc.toString() + "."));
-            } else {
-                player.sendMessage(MessageUtils.getColoredMessage("No se encontró ningún punto de interés con el ID '" + id + "'."));
             }
+        } else {
+            player.sendMessage(MessageUtils.getColoredMessage("No se encontró ningún punto de interés con el ID '" + id + "'."));
         }
         return true;
     }

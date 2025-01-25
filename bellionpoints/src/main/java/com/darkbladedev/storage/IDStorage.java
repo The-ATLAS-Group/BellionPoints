@@ -45,6 +45,19 @@ public class IDStorage {
         }
     }
 
+    public void addMonolithID(UUID playerUUID, String monolithID) {
+        List<String> monolithIDs = getPlayerIDs(playerUUID);
+        if (!monolithIDs.contains(monolithID)) {
+            monolithIDs.add(monolithID);
+            config.set(playerUUID.toString(), monolithIDs);
+            saveConfig();
+        }
+    }
+
+    public List<String> getMonolithIDs(UUID playerUUID) {
+        return getPlayerIDs(playerUUID);
+    }
+
     private void saveConfig() {
         try {
             config.save(file);

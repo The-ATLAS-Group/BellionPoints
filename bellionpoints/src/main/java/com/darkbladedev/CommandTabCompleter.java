@@ -31,38 +31,40 @@ public class CommandTabCompleter implements TabCompleter {
                 completions.addAll(Arrays.asList("info", "create-point", "delete-point", "locate", "teleport"));
             
             } else if (args[0].equalsIgnoreCase("create-point")) {
-                if (args.length == 1) {
+                if (args.length == 2) {
                     completions.add("ID");
                 
-                } else if (args.length == 2) {
+                } else if (args.length == 3) {
                     completions.addAll(Arrays.asList("current", "specific"));
                 
-                } else if (args.length == 3) {
+                } else if (args.length == 4) {
                     
                     if (args[3].equalsIgnoreCase("specific") && sender instanceof Player) {
                         Player player = (Player) sender;
-                        if (args.length == 4) {
+                        if (args.length == 5) {
                             completions.add(String.valueOf(player.getLocation().getBlockX()));
-                        } else if (args.length == 5) {
-                            completions.add(String.valueOf(player.getLocation().getBlockY()));
                         } else if (args.length == 6) {
+                            completions.add(String.valueOf(player.getLocation().getBlockY()));
+                        } else if (args.length == 7) {
                             completions.add(String.valueOf(player.getLocation().getBlockZ()));
                         }
 
                     }
                     
-                } else if (args.length == 4) {
+                } else if (args[3].equalsIgnoreCase("current") && args.length == 4) {
                     completions.add("name");
                 
                 }
 
             } else if (args[0].equalsIgnoreCase("delete-point")) {
-                    
-                    // Add IDs for delete-point command
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-                        completions.addAll(idStorage.getPlayerIDs(player.getUniqueId()));
+                    if (args.length == 2) {
+                        // Add IDs for delete-point command
+                        if (sender instanceof Player) {
+                            Player player = (Player) sender;
+                            completions.addAll(idStorage.getPlayerIDs(player.getUniqueId()));
+                        }
                     }
+
                 }
             } else if (args.length == 3 && args[0].equalsIgnoreCase("teleport")) {
                 // Add the player name target for the teleport command
@@ -72,11 +74,14 @@ public class CommandTabCompleter implements TabCompleter {
                     Player player = (Player) sender;
                     completions.addAll(idStorage.getPlayerIDs(player.getUniqueId()));
                 }
+
             } else if (args[0].equalsIgnoreCase("locate")) {
-                // Add IDs for the locate command
-                if (sender instanceof Player) {
-                    Player player = (Player) sender;
-                    completions.addAll(idStorage.getPlayerIDs(player.getUniqueId()));
+                if (args.length == 2) {
+                    // Add IDs for the locate command
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+                        completions.addAll(idStorage.getMonolithIDs(player.getUniqueId()));
+                    }
                 }
             } else if (args.length == 0) {
                 sender.sendMessage(MessageUtils.getColoredMessage(InfoCommand.guide));
