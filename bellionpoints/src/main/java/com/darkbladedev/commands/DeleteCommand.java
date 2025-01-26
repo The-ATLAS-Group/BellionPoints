@@ -13,7 +13,7 @@ public class DeleteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage("Uso: /bellion delete-point <ID>");
+            sender.sendMessage("&cUso: /bellion delete-point <ID>");
             return false;
         }
 
@@ -23,11 +23,12 @@ public class DeleteCommand implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("delete-point")) {
             if (loc != null) {
                 CreateCommand.removePointOfInterest(id);
-                sender.sendMessage(MessageUtils.getColoredMessage("Punto de interés '" + id + "' eliminado."));
+                sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés '&6" + id + "' &aeliminado."));
+                return true;
             } else {
-                sender.sendMessage(MessageUtils.getColoredMessage("No se encontró ningún punto de interés con el ID '" + id + "'."));
+                sender.sendMessage(MessageUtils.getColoredMessage("&cNo se encontró ningún punto de interés con el ID '&6" + id + "&c'."));
+                return false;
             }
-
         }
         return true;
     }

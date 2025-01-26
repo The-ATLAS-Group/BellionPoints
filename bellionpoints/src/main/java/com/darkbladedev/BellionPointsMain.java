@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
 import com.darkbladedev.commands.BellionCommand;
+import com.darkbladedev.events.MonolithPlaceEvent;
 import com.darkbladedev.storage.StorageManager;
 
 public class BellionPointsMain extends JavaPlugin {
@@ -47,5 +48,7 @@ public class BellionPointsMain extends JavaPlugin {
 
         // Register the tab completer
         getCommand("bellion").setTabCompleter(new CommandTabCompleter(idStorage));
+
+        getPluginLoader().createRegisteredListeners(new MonolithPlaceEvent(idStorage), this);
     }
 }

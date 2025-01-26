@@ -14,7 +14,7 @@ public class InfoCommand implements CommandExecutor {
             """
             -- GUIA DE BELLION POINTS --
             &fDescripción de BellionPoints:
-              &5BellionPoints es un plugin que agrega bloques de teletransporte localizables.
+              &7BellionPoints es un plugin que agrega bloques de teletransporte localizables.
             
             &fComandos disponibles:
               &6/bellion &acreate-point <ID> <type> <position> [name]   &6Crea un punto de interés localizable

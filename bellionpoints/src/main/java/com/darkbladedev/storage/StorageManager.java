@@ -19,6 +19,14 @@ public class StorageManager {
 
     public StorageManager(File dataFolder) {
         this.file = new File(dataFolder, "points_data.yml");
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         this.config = YamlConfiguration.loadConfiguration(file);
     }
 

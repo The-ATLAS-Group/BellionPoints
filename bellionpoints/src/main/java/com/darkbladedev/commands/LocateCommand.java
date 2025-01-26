@@ -14,7 +14,7 @@ public class LocateCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(MessageUtils.getColoredMessage("Uso: /bellion locate <ID>"));
+            sender.sendMessage(MessageUtils.getColoredMessage("&cUso: /bellion locate <ID>"));
             return false;
         }
 
@@ -24,10 +24,10 @@ public class LocateCommand implements CommandExecutor {
         if (args[0].equalsIgnoreCase("locate")) {
 
             if (loc != null) {
-                player.sendMessage(MessageUtils.getColoredMessage("El punto de interés '" + id + "' está en la posición " + loc.toString() + "."));
+                player.sendMessage(MessageUtils.getColoredMessage("&aEl punto de interés '&6" + id + "' &aestá en la posición &6" + loc.toString() + "."));
             }
         } else {
-            player.sendMessage(MessageUtils.getColoredMessage("No se encontró ningún punto de interés con el ID '" + id + "'."));
+            player.sendMessage(MessageUtils.getColoredMessage("&cNo se encontró ningún punto de interés con el ID '&6" + id + "'&c."));
         }
         return true;
     }

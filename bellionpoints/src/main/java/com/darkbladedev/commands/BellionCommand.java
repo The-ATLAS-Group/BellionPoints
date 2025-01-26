@@ -18,7 +18,7 @@ public class BellionCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
-            sender.sendMessage("Uso: /bellion <info | create-point | delete-point | locate | teleport>");
+            sender.sendMessage(MessageUtils.getColoredMessage("Uso: /bellion <info | create-point | delete-point | locate | teleport>"));
             return false;
         }
 

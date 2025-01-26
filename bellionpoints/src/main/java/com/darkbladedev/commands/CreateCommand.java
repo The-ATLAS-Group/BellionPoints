@@ -26,12 +26,12 @@ public class CreateCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("Solo los jugadores pueden usar este comando.");
+            sender.sendMessage(MessageUtils.getColoredMessage("&cSolo los jugadores pueden usar este comando."));
             return false;
         }
 
         if (args.length < 4) {
-            sender.sendMessage("Uso: /bellion create-point <ID> <type> <position> [world] [name]");
+            sender.sendMessage(MessageUtils.getColoredMessage("&cUso: /bellion create-point <ID> <type> <position> [world] [name]"));
             return false;
         }
 
@@ -39,7 +39,7 @@ public class CreateCommand implements CommandExecutor {
         String id = args[1];
         String type = args[2];
         String position = args[3];
-        String name = args.length > 4 ? args[4] : "Punto de interes";
+        String name = args.length < 4 ? args[4] : "Punto de interes";
         
         Location loc = null;
         Location coords = null;
@@ -61,6 +61,7 @@ public class CreateCommand implements CommandExecutor {
                         double y = Double.parseDouble(posArray[1]);
                         double z = Double.parseDouble(posArray[2]);
                         loc = new Location(player.getWorld(), x, y, z);
+
                     } catch (NumberFormatException e) {
                         sender.sendMessage(MessageUtils.getColoredMessage("&cPosición inválida."));
                         return false;
@@ -71,12 +72,13 @@ public class CreateCommand implements CommandExecutor {
                 }
             }
 
-            if (loc != null) {
-                // Guarda el ID en el archivo
-                idStorage.saveMonolithData(player, id, loc, name);
-                sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
-            }
-
+        }
+        
+        if (loc != null) {
+            // Guarda el ID en el archivo
+            idStorage.saveMonolithData(player, id, loc, name);
+            sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
+            
             return true;
         }
                 
