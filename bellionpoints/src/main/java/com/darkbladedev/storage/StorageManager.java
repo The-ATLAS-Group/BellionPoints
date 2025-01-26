@@ -4,8 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-
+import org.bukkit.entity.Entity;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,9 +30,9 @@ public class StorageManager {
     }
 
 
-    public void saveMonolithData(Player player, String monolithID, Location location, String name) {
+    public void saveMonolithData(Entity player, String monolithID, Location location, String name) {
         String playerName = player.getName();
-        UUID monolithUUID = UUID.randomUUID();
+        String monolithUUID = UUID.randomUUID().toString();
 
         String path = "players." + playerName.toString() + ".monoliths." + monolithUUID;
 

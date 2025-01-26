@@ -1,23 +1,17 @@
 package com.darkbladedev.events;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import org.bukkit.Location;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.Listener;
 
 import com.darkbladedev.storage.StorageManager;
+import com.darkbladedev.utils.MessageUtils;
 import com.ssomar.executableblocks.executableblocks.ExecutableBlock;
-import com.ssomar.executableblocks.executableblocks.ExecutableBlocksManager;
+import com.ssomar.score.api.executableblocks.events.ExecutableBlockPlaceEvent;
+import com.ssomar.score.api.executableblocks.config.placed.ExecutableBlockPlacedInterface;
 
 public class MonolithPlaceEvent implements Listener {
 
     public static Location monolithLocation;
-
-    public static ExecutableBlock monolithBlock;
 
     private final StorageManager storageManager;
 
@@ -25,23 +19,21 @@ public class MonolithPlaceEvent implements Listener {
         this.storageManager = storageManager;
     }
 
-    // Gets the block type and location.
-    @SuppressWarnings("unlikely-arg-type")
-    @EventHandler
-    public void onBlockPlace(BlockPlaceEvent event) {
 
-        Optional<ExecutableBlock> executableBlock = ExecutableBlocksManager.getInstance().getExecutableBlock((ItemStack) event.getBlock());
+    public void onMonolithPlace(ExecutableBlockPlaceEvent event) {
+        ExecutableBlock monolithBlock = (ExecutableBlock) event.getExecutableBlockPlaced();
+        ExecutableBlockPlacedInterface monolithBlockPlaced = event.getExecutableBlockPlaced();
 
-        if (event.getBlock().getType().toString().equals(monolithBlock.getItemName().toString().equalsIgnoreCase("&5&lMonolito"))) {
+        if (event.getExecutableBlockPlaced().getEB_ID().equals("monolith")) {
+            String monolithID = monolithBlock.getId();
+            String monolithName = monolithBlock.getName();
+            monolithLocation = monolithBlockPlaced.getLocation();
+
+            // Message the player
+            event.getPlacer().sendMessage(MessageUtils.getColoredMessage("&aMonolito colocado con el ID: &6" + monolithID + " &anombrado como: &6" + monolithName));
             
-            // Handle the monolith placement event here
-            monolithLocation = event.getBlock().getLocation();
-            String monolithName = executableBlock.get().getName();
-            String monolithID = UUID.randomUUID().toString();
-
             // Save the monolith data
-            storageManager.saveMonolithData(event.getPlayer(), monolithID, monolithLocation, monolithName);
+            storageManager.saveMonolithData(event.getPlacer(), monolithID, monolithLocation, monolithName);
         }
     }
-    
 }

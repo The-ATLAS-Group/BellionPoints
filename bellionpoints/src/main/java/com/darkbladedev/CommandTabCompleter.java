@@ -63,8 +63,9 @@ public class CommandTabCompleter implements TabCompleter {
                         if (sender instanceof Player) {
                             Player player = (Player) sender;
                             completions.addAll(idStorage.getMonolithIDs(player.getName()));
+                        } else if (idStorage.getMonolithIDs(args[1]) == null) {
+                            sender.sendMessage(MessageUtils.getColoredMessage("&cNo se encontró ningún punto de interés con el ID '&6" + args[1] + "'&c."));
                         }
-                    }
 
                 }
             } else if (args.length == 3 && args[0].equalsIgnoreCase("teleport")) {
@@ -75,8 +76,6 @@ public class CommandTabCompleter implements TabCompleter {
 
                     Player player = (Player) sender;
                     
-                    //String owner = idStorage.getMonolithOwner(player.getName());
-
                     completions.addAll(idStorage.getMonolithIDs(player.getName()));
                 }
 
@@ -92,5 +91,7 @@ public class CommandTabCompleter implements TabCompleter {
                 sender.sendMessage(MessageUtils.getColoredMessage(InfoCommand.guide));
             }
         return completions;
+        }
+    return completions;
     }
 }

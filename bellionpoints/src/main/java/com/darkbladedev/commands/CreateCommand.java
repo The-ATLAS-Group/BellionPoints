@@ -11,12 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class CreateCommand implements CommandExecutor {
 
-    private static final Map<String, Location> pointsOfInterest = new HashMap<>();
     private final StorageManager idStorage;
     
         public CreateCommand(StorageManager idStorage) {
@@ -61,6 +57,14 @@ public class CreateCommand implements CommandExecutor {
                             double y = Double.parseDouble(posArray[1]);
                             double z = Double.parseDouble(posArray[2]);
                             loc = new Location(player.getWorld(), x, y, z);
+
+                            if (loc != null) {
+                                // Guarda el ID en el archivo
+                                idStorage.saveMonolithData(player, id, loc, name);
+                                sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
+                                
+                                return true;
+                            }
     
                         } catch (NumberFormatException e) {
                             sender.sendMessage(MessageUtils.getColoredMessage("&cPosición inválida."));

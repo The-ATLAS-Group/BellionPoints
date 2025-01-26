@@ -1,8 +1,6 @@
 package com.darkbladedev.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,11 +28,13 @@ public class LocateCommand implements CommandExecutor {
 
         String id = args[1];
         Player player = (Player) sender;
+
+        String worldName = (String) storageManager.getMonolithData(player.getName(), "location.world");
         String locX = storageManager.getMonolithData(player.getName(), "location.x");
         String locY = storageManager.getMonolithData(player.getName(), "location.y");
         String locZ = storageManager.getMonolithData(player.getName(), "location.z");
 
-        ArrayList<String> loc = new ArrayList<>(Arrays.asList(locX, locY, locZ));
+        Location loc = new Location(Bukkit.getWorld(worldName), Double.parseDouble(locX), Double.parseDouble(locY), Double.parseDouble(locZ));
 
         if (args[0].equalsIgnoreCase("locate")) {
 
