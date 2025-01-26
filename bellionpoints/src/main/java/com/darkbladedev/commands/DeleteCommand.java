@@ -1,14 +1,22 @@
 package com.darkbladedev.commands;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import com.darkbladedev.storage.StorageManager;
 import com.darkbladedev.utils.MessageUtils;
 
 public class DeleteCommand implements CommandExecutor {
+
+    private final StorageManager storageManager;
+
+    public DeleteCommand(StorageManager storageManager) {
+        this.storageManager = storageManager;
+    }
+
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -17,12 +25,16 @@ public class DeleteCommand implements CommandExecutor {
             return false;
         }
 
+        Player player = (Player) sender;
         String id = args[1];
-        Location loc = CreateCommand.getPointOfInterest(id);
+        String locX = storageManager.getMonolithData(player.getName(), "location.x");
+        String locY = storageManager.getMonolithData(player.getName(), "location.y");
+        String locZ = storageManager.getMonolithData(player.getName(), "location.z");
+
+        String checkedID = storageManager.getMonolithData(player.getName(), "id");
         
         if (command.getName().equalsIgnoreCase("delete-point")) {
-            if (loc != null) {
-                CreateCommand.removePointOfInterest(id);
+            if (locX != null && locY != null && locZ != null && checkedID.equals(id)) {
                 sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés '&6" + id + "' &aeliminado."));
                 return true;
             } else {

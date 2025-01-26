@@ -30,11 +30,11 @@ public class BellionCommand implements CommandExecutor {
             case "create-point":
                 return new CreateCommand(idStorage).onCommand(sender, command, label, args);
             case "delete-point":
-                return new DeleteCommand().onCommand(sender, command, label, args);
+                return new DeleteCommand(idStorage).onCommand(sender, command, label, args);
             case "locate":
-                return new LocateCommand().onCommand(sender, command, label, args);
+                return new LocateCommand(idStorage).onCommand(sender, command, label, args);
             case "teleport":
-                return new TeleportCommand().onCommand(sender, command, label, args);
+                return new TeleportCommand(idStorage).onCommand(sender, command, label, args);
             default:
                 sender.sendMessage(MessageUtils.getColoredMessage("&cComando desconocido. Uso: /bellion <info | create-point | delete-point | locate | teleport>"));
                 return false;

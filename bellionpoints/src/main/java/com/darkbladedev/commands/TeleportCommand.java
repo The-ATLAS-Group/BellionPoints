@@ -7,7 +7,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import com.darkbladedev.storage.StorageManager;
+import com.darkbladedev.utils.MessageUtils;
+
 public class TeleportCommand implements CommandExecutor {
+
+    private final StorageManager storageManager;
+
+    public TeleportCommand(StorageManager storageManager) {
+        this.storageManager = storageManager;
+    }
+
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -19,15 +29,21 @@ public class TeleportCommand implements CommandExecutor {
         String playerName = args[1];
         String id = args[2];
         Player player = sender.getServer().getPlayer(playerName);
-        Location loc = CreateCommand.getPointOfInterest(id);
+
+        String locX = storageManager.getMonolithData(player.getName(), "location.x");
+        String locY = storageManager.getMonolithData(player.getName(), "location.y");
+        String locZ = storageManager.getMonolithData(player.getName(), "location.z");
+
+        Location loc = new Location(player.getWorld(), Double.parseDouble(locX), Double.parseDouble(locY), Double.parseDouble(locZ));
+
         if (command.getName().equalsIgnoreCase("teleport")){
-            if (playerName != null && loc != null) {
+            if (playerName != null && locX != null && locY != null && locZ != null) {
                 player.teleport(loc);
                 sender.sendMessage("Jugador '" + playerName + "' teletransportado al punto de interés '" + id + "'.");
-            } else if (player == null) {
-                sender.sendMessage("No se encontró ningún jugador con el nombre '" + playerName + "'.");
+            } else if (player.getName() == null) {
+                sender.sendMessage(MessageUtils.getColoredMessage("No se encontró ningún jugador con el nombre '" + playerName + "'."));
             } else {
-                sender.sendMessage("No se encontró ningún punto de interés con el ID '" + id + "'.");
+                sender.sendMessage(MessageUtils.getColoredMessage("No se encontró ningún punto de interés con el ID '" + id + "'."));
             }
         }
         return true;

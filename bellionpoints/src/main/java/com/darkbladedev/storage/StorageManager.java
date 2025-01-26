@@ -56,12 +56,12 @@ public class StorageManager {
         return null;
     }
 
-    public Map<String, Object> getMonolithData(String playerName, String monolithID) {
-        ConfigurationSection monolithSection = config.getConfigurationSection("players." + playerName + ".monoliths.");
-        if (monolithSection != null) {
-            for (String key : monolithSection.getKeys(false)) {
-                if (monolithSection.getString(key + ".id").equals(monolithID)) {
-                    return monolithSection.getConfigurationSection(key).getValues(true);
+    public String getMonolithData(String playerName, String key) {
+        ConfigurationSection monolithSectionPath = config.getConfigurationSection("players." + playerName + ".monoliths.");
+        if (monolithSectionPath != null) {
+            for (String iteratorKey : monolithSectionPath.getKeys(false)) {
+                if (monolithSectionPath.getString(iteratorKey + "." + key) != null) {
+                    return String.valueOf(monolithSectionPath.getConfigurationSection(key).getValues(false));
                 }
             }
         }
