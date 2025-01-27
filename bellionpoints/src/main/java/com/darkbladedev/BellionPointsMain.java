@@ -44,11 +44,11 @@ public class BellionPointsMain extends JavaPlugin {
     }
 
     public void registerCommands() {
-        getCommand("bellion").setExecutor(new BellionCommand(idStorage));
-
-        // Register the tab completer
-        getCommand("bellion").setTabCompleter(new CommandTabCompleter(idStorage));
-
+        if (getCommand("bellion") != null) {
+            getCommand("bellion").setExecutor(new BellionCommand(idStorage));
+            // Register the tab completer
+            getCommand("bellion").setTabCompleter(new CommandTabCompleter(idStorage));
+        }
         getPluginLoader().createRegisteredListeners(new MonolithPlaceEvent(idStorage), this);
     }
 }

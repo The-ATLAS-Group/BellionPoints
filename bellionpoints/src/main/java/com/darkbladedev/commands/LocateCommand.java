@@ -34,6 +34,11 @@ public class LocateCommand implements CommandExecutor {
         String locY = storageManager.getMonolithData(player.getName(), "location.y");
         String locZ = storageManager.getMonolithData(player.getName(), "location.z");
 
+        if (worldName == null || locX == null || locY == null || locZ == null) {
+            sender.sendMessage(MessageUtils.getColoredMessage("&cNo se encontró ningún punto de interés con el ID '&6" + id + "'&c."));
+            return false;
+        }
+
         Location loc = new Location(Bukkit.getWorld(worldName), Double.parseDouble(locX), Double.parseDouble(locY), Double.parseDouble(locZ));
 
         if (args[0].equalsIgnoreCase("locate")) {

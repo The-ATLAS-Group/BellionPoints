@@ -17,10 +17,10 @@ import java.util.List;
 
 public class CommandTabCompleter implements TabCompleter {
 
-    private final StorageManager idStorage;
+    private final StorageManager storageManager;
 
-    public CommandTabCompleter(StorageManager idStorage) {
-        this.idStorage = idStorage;
+    public CommandTabCompleter(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -62,8 +62,8 @@ public class CommandTabCompleter implements TabCompleter {
                         // Add IDs for delete-point command
                         if (sender instanceof Player) {
                             Player player = (Player) sender;
-                            completions.addAll(idStorage.getMonolithIDs(player.getName()));
-                        } else if (idStorage.getMonolithIDs(args[1]) == null) {
+                            completions.addAll(storageManager.getMonolithIDs(player.getName()));
+                        } else if (storageManager.getMonolithIDs(args[1]) == null) {
                             sender.sendMessage(MessageUtils.getColoredMessage("&cNo se encontró ningún punto de interés con el ID '&6" + args[1] + "'&c."));
                         }
 
@@ -76,7 +76,7 @@ public class CommandTabCompleter implements TabCompleter {
 
                     Player player = (Player) sender;
                     
-                    completions.addAll(idStorage.getMonolithIDs(player.getName()));
+                    completions.addAll(storageManager.getMonolithIDs(player.getName()));
                 }
 
             } else if (args[0].equalsIgnoreCase("locate")) {
@@ -84,9 +84,12 @@ public class CommandTabCompleter implements TabCompleter {
                     // Add IDs for the locate command
                     if (sender instanceof Player) {
                         Player player = (Player) sender;
-                        completions.addAll(idStorage.getMonolithIDs(player.getName()));
+                        List<String> monolithIDs = storageManager.getMonolithIDs(player.getName());
+                        if (monolithIDs != null) {
+                            completions.addAll(monolithIDs);
+                            }
+                        }
                     }
-                }
             } else if (args.length == 0) {
                 sender.sendMessage(MessageUtils.getColoredMessage(InfoCommand.guide));
             }

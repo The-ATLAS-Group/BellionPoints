@@ -33,6 +33,11 @@ public class DeleteCommand implements CommandExecutor {
 
         String checkedID = storageManager.getMonolithData(player.getName(), "id");
         
+        if (checkedID == null || !checkedID.equals(id)) {
+            sender.sendMessage(MessageUtils.getColoredMessage("&cNo se encontró ningún punto de interés con el ID '&6" + id + "&c'."));
+            return false;
+        }
+        
         if (command.getName().equalsIgnoreCase("delete-point")) {
             if (locX != null && locY != null && locZ != null && checkedID.equals(id)) {
                 sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés '&6" + id + "' &aeliminado."));

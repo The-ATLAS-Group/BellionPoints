@@ -35,6 +35,8 @@ public class BellionCommand implements CommandExecutor {
                 return new LocateCommand(idStorage).onCommand(sender, command, label, args);
             case "teleport":
                 return new TeleportCommand(idStorage).onCommand(sender, command, label, args);
+            case "save-config":
+                return new SaveFileCommand(idStorage).onCommand(sender, command, label, args);
             default:
                 sender.sendMessage(MessageUtils.getColoredMessage("&cComando desconocido. Uso: /bellion <info | create-point | delete-point | locate | teleport>"));
                 return false;

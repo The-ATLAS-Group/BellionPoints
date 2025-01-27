@@ -25,7 +25,13 @@ public class InfoCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-    if (args[0].equalsIgnoreCase("info")) {
+    
+      if (args.length == 0 || !args[0].equalsIgnoreCase("info")) {
+        sender.sendMessage(MessageUtils.getColoredMessage("Uso: /bellion <info | create-point | delete-point | locate | teleport>"));
+        return false;
+    }
+    
+      if (args[0].equalsIgnoreCase("info")) {
 
       sender.sendMessage(MessageUtils.getColoredMessage(guide));
     }

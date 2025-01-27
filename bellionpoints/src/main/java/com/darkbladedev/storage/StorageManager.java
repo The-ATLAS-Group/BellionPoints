@@ -1,10 +1,14 @@
 package com.darkbladedev.storage;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
+
+import com.darkbladedev.utils.MessageUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +31,15 @@ public class StorageManager {
             }
         }
         this.config = YamlConfiguration.loadConfiguration(file);
+    }
+
+        public void saveConfig() {
+        try {
+            config.save(file);
+            Bukkit.getLogger().info(MessageUtils.getColoredMessage("&6Configuración guardada exitosamente!"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -91,7 +104,7 @@ public class StorageManager {
                     }
                     return monolithIDs;
                 }
-                return null;
+                return monolithIDs;
             }
 
 
@@ -101,11 +114,5 @@ public class StorageManager {
     }
 
 
-    private void saveConfig() {
-        try {
-            config.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
