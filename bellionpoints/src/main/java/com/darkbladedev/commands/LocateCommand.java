@@ -43,7 +43,7 @@ public class LocateCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("locate")) {
 
-            if (loc != null) {
+            if (loc != null || loc.toString().isEmpty() == false) {
                 player.sendMessage(MessageUtils.getColoredMessage("&aEl punto de interés '&6" + id + "' &aestá en la posición &6" + locX + " " + locY + " " + locZ + " " + "."));
             }
         } else {

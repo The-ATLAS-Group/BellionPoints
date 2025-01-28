@@ -1,5 +1,6 @@
 package com.darkbladedev.commands;
 
+import com.darkbladedev.commands.admin.SaveDataCommand;
 import com.darkbladedev.storage.StorageManager;
 import com.darkbladedev.utils.MessageUtils;
 
@@ -36,7 +37,7 @@ public class BellionCommand implements CommandExecutor {
             case "teleport":
                 return new TeleportCommand(idStorage).onCommand(sender, command, label, args);
             case "save-config":
-                return new SaveFileCommand(idStorage).onCommand(sender, command, label, args);
+                return new SaveDataCommand(idStorage).onCommand(sender, command, label, args);
             default:
                 sender.sendMessage(MessageUtils.getColoredMessage("&cComando desconocido. Uso: /bellion <info | create-point | delete-point | locate | teleport>"));
                 return false;

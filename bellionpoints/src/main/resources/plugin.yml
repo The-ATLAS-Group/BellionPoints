@@ -13,3 +13,8 @@ commands:
     aliases: [bp, bellionpoints]
     permission: bellion.use
     permission-message: "No tienes permiso para usar este comando."
+  bellion-admin:
+    description: Comando de administrador de BellionPoints.
+    aliases: [bp-admin, bellionpoints-admin]
+    permission: bellion.admin
+    permission-message: "No tienes permiso para usar este comando."

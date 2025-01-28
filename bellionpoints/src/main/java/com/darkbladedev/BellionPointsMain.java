@@ -6,11 +6,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
 import com.darkbladedev.commands.BellionCommand;
+import com.darkbladedev.commands.admin.DeleteDataCommand;
+import com.darkbladedev.commands.tabcompleters.AdminCommandsTabCompleter;
+import com.darkbladedev.commands.tabcompleters.CommandTabCompleter;
 import com.darkbladedev.events.MonolithPlaceEvent;
 import com.darkbladedev.storage.StorageManager;
 
 public class BellionPointsMain extends JavaPlugin {
-    private StorageManager idStorage;
+    private StorageManager storageManager;
 
     public final String prefix = "&3[&cBellion &5Points&3]&a";
 
@@ -22,7 +25,7 @@ public class BellionPointsMain extends JavaPlugin {
             getDataFolder().mkdirs();
         }
 
-        idStorage = new StorageManager(getDataFolder());
+        storageManager = new StorageManager(getDataFolder());
 
         registerCommands();
 
@@ -45,10 +48,16 @@ public class BellionPointsMain extends JavaPlugin {
 
     public void registerCommands() {
         if (getCommand("bellion") != null) {
-            getCommand("bellion").setExecutor(new BellionCommand(idStorage));
+            getCommand("bellion").setExecutor(new BellionCommand(storageManager));
             // Register the tab completer
-            getCommand("bellion").setTabCompleter(new CommandTabCompleter(idStorage));
+            getCommand("bellion").setTabCompleter(new CommandTabCompleter(storageManager));
         }
-        getPluginLoader().createRegisteredListeners(new MonolithPlaceEvent(idStorage), this);
+
+        if (getCommand("bellion-admin") != null) {
+            getCommand("bellion-admin").setExecutor(new DeleteDataCommand(storageManager));
+            // Register the tab completer
+            getCommand("bellion-admin").setTabCompleter(new AdminCommandsTabCompleter(storageManager));
+        }
+        getPluginLoader().createRegisteredListeners(new MonolithPlaceEvent(storageManager), this);
     }
 }

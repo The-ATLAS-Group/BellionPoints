@@ -3,6 +3,7 @@ package com.darkbladedev.storage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class StorageManager {
     private final File file;
@@ -42,13 +42,33 @@ public class StorageManager {
         }
     }
 
+    public void createData() {
+        if (config.getConfigurationSection("players") == null) {
+            config.createSection("players");
+            ConfigurationSection configSection = config.getConfigurationSection("players");
+            MemorySection.createPath(configSection, "players.DarkBladeDev.monoliths.1");
+            saveConfig();
+
+            Bukkit.getLogger().info(MessageUtils.getColoredMessage("&6Configuración creada exitosamente!"));
+        }
+    }
+
+
+    private int getNextMonolithID(String playerName) {
+        ConfigurationSection monolithsSection = config.getConfigurationSection("players." + playerName + ".monoliths");
+        if (monolithsSection == null) {
+            return 1;
+        }
+        return monolithsSection.getKeys(false).size() + 1;
+    }
+
 
     public void saveMonolithData(Entity player, String monolithID, Location location, String name) {
         String playerName = player.getName();
-        String monolithUUID = UUID.randomUUID().toString();
+        Integer monolithIDNumber = getNextMonolithID(playerName);
 
-        String path = "players." + playerName.toString() + ".monoliths." + monolithUUID;
-
+        String path = "players." + playerName.toString() + ".monoliths." + monolithIDNumber;
+        config.createSection(path);
         config.set(path + ".id", monolithID);
         config.set(path + ".owner", playerName);
         config.set(path + ".name", name);
@@ -71,8 +91,9 @@ public class StorageManager {
     public String getMonolithData(String playerName, String key) {
         ConfigurationSection monolithSectionPath = config.getConfigurationSection("players." + playerName + ".monoliths.");
         if (monolithSectionPath != null) {
-            for (String iteratorKey : monolithSectionPath.getKeys(false)) {
-                if (monolithSectionPath.getString(iteratorKey + "." + key) != null) {
+            for (String uuidString : monolithSectionPath.getKeys(false)) {
+                ConfigurationSection monolithSection = monolithSectionPath.getConfigurationSection(uuidString);
+                if (monolithSection != null && monolithSection.getString(key) != null) {
                     return String.valueOf(monolithSectionPath.getConfigurationSection(key).getValues(false));
                 }
             }
@@ -108,9 +129,16 @@ public class StorageManager {
             }
 
 
-    public void deletePlayerData(String playerName) {
-        config.set("players." + playerName, null);
-        saveConfig();
+    public boolean deletePlayerData(String playerName) {
+        try {
+            config.set("players." + playerName, null);
+            saveConfig();
+            Bukkit.getLogger().info(MessageUtils.getColoredMessage("&6Datos borrados exitosamente!"));
+            return true;
+        } catch (Exception e) {
+            Bukkit.getLogger().info(MessageUtils.getColoredMessage("&cNo se encontraron los datos solicitados."));
+            return false;
+        }
     }
 
 

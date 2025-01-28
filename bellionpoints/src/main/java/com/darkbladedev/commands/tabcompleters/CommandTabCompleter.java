@@ -1,4 +1,4 @@
-package com.darkbladedev;
+package com.darkbladedev.commands.tabcompleters;
 
 import com.darkbladedev.commands.InfoCommand;
 import com.darkbladedev.storage.StorageManager;
