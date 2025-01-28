@@ -29,7 +29,7 @@ public class LocateCommand implements CommandExecutor {
         String id = args[1];
         Player player = (Player) sender;
 
-        String worldName = (String) storageManager.getMonolithData(player.getName(), "location.world");
+        String worldName = (String) storageManager.getMonolithData(player.getName(), "location.world", id);
         String locX = storageManager.getMonolithData(player.getName(), "location.x");
         String locY = storageManager.getMonolithData(player.getName(), "location.y");
         String locZ = storageManager.getMonolithData(player.getName(), "location.z");

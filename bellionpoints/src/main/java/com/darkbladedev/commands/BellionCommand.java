@@ -10,10 +10,10 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class BellionCommand implements CommandExecutor {
-    private final StorageManager idStorage;
+    private final StorageManager storageManager;
 
-    public BellionCommand(StorageManager idStorage) {
-        this.idStorage = idStorage;
+    public BellionCommand(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -29,15 +29,15 @@ public class BellionCommand implements CommandExecutor {
             case "info":
                 return new InfoCommand().onCommand(sender, command, label, args);
             case "create-point":
-                return new CreateCommand(idStorage).onCommand(sender, command, label, args);
+                return new CreateCommand(storageManager).onCommand(sender, command, label, args);
             case "delete-point":
-                return new DeleteCommand(idStorage).onCommand(sender, command, label, args);
+                return new DeleteCommand(storageManager).onCommand(sender, command, label, args);
             case "locate":
-                return new LocateCommand(idStorage).onCommand(sender, command, label, args);
+                return new LocateCommand(storageManager).onCommand(sender, command, label, args);
             case "teleport":
-                return new TeleportCommand(idStorage).onCommand(sender, command, label, args);
-            case "save-config":
-                return new SaveDataCommand(idStorage).onCommand(sender, command, label, args);
+                return new TeleportCommand(storageManager).onCommand(sender, command, label, args);
+            case "save-data":
+                return new SaveDataCommand(storageManager).onCommand(sender, command, label, args);
             default:
                 sender.sendMessage(MessageUtils.getColoredMessage("&cComando desconocido. Uso: /bellion <info | create-point | delete-point | locate | teleport>"));
                 return false;

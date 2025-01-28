@@ -14,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class CreateCommand implements CommandExecutor {
 
-    private final StorageManager idStorage;
+    private final StorageManager storageManager;
     
-    public CreateCommand(StorageManager idStorage) {
-        this.idStorage = idStorage;
+    public CreateCommand(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class CreateCommand implements CommandExecutor {
         Location coords = null;
 
         
-        if (command.getName().equalsIgnoreCase("create-point")) {
+        if (args[0].equalsIgnoreCase("create-point")) {
             if (type.equalsIgnoreCase("current")) {
                 coords = player.getLocation();
                 World playerWorld = player.getWorld();
@@ -51,9 +51,9 @@ public class CreateCommand implements CommandExecutor {
 
                 if (loc != null) {
                     // Guarda el monolito en el archivo de datos
-                    idStorage.saveMonolithData(player, id, loc, name);
-                    sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
-                    Bukkit.getLogger().info(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name + " &aa nombre de: &6" + player.getName()));
+                    storageManager.saveMonolithData(player, id, loc, name);
+                    sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&a nombrado como: &6" + name));
+                    Bukkit.getLogger().info(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&a nombrado como: &6" + name + " &a a nombre de: &6" + player.getName()));
                     return true;
                 }
 
@@ -75,7 +75,7 @@ public class CreateCommand implements CommandExecutor {
 
                         if (loc != null) {
                             // Guarda el ID en el archivo
-                            idStorage.saveMonolithData(player, id, loc, name);
+                            storageManager.saveMonolithData(player, id, loc, name);
                             sender.sendMessage(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name));
                             Bukkit.getLogger().info(MessageUtils.getColoredMessage("&aPunto de interés creado con ID: &6" + id + "&anombrado como: &6" + name + " &aa nombre de: &6" + player.getName()));
                             return true;

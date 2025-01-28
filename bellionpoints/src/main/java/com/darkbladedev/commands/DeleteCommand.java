@@ -27,9 +27,9 @@ public class DeleteCommand implements CommandExecutor {
 
         Player player = (Player) sender;
         String id = args[1];
-        String locX = storageManager.getMonolithData(player.getName(), "location.x");
-        String locY = storageManager.getMonolithData(player.getName(), "location.y");
-        String locZ = storageManager.getMonolithData(player.getName(), "location.z");
+        String locX = storageManager.getMonolithData(player.getName(), "location.x", id);
+        String locY = storageManager.getMonolithData(player.getName(), "location.y", id);
+        String locZ = storageManager.getMonolithData(player.getName(), "location.z", id);
 
         String checkedID = storageManager.getMonolithData(player.getName(), "id");
         

@@ -13,10 +13,7 @@ import com.darkbladedev.storage.StorageManager;
 
 public class AdminCommandsTabCompleter implements TabCompleter {
     
-    private final StorageManager storageManager;
-
     public AdminCommandsTabCompleter(StorageManager storageManager) {
-        this.storageManager = storageManager;
     }
     
     @Override

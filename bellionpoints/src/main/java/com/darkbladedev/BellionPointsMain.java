@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.ChatColor;
 
 import com.darkbladedev.commands.BellionCommand;
-import com.darkbladedev.commands.admin.DeleteDataCommand;
+import com.darkbladedev.commands.admin.BellionAdminCommands;
 import com.darkbladedev.commands.tabcompleters.AdminCommandsTabCompleter;
 import com.darkbladedev.commands.tabcompleters.CommandTabCompleter;
 import com.darkbladedev.events.MonolithPlaceEvent;
@@ -54,7 +54,7 @@ public class BellionPointsMain extends JavaPlugin {
         }
 
         if (getCommand("bellion-admin") != null) {
-            getCommand("bellion-admin").setExecutor(new DeleteDataCommand(storageManager));
+            getCommand("bellion-admin").setExecutor(new BellionAdminCommands(storageManager));
             // Register the tab completer
             getCommand("bellion-admin").setTabCompleter(new AdminCommandsTabCompleter(storageManager));
         }

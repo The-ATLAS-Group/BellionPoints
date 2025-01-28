@@ -88,14 +88,27 @@ public class StorageManager {
         return null;
     }
 
-    public String getMonolithData(String playerName, String key) {
-        ConfigurationSection monolithSectionPath = config.getConfigurationSection("players." + playerName + ".monoliths.");
-        if (monolithSectionPath != null) {
+    public String getMonolithData(String playerName, String key, String monolithPath) {
+        ConfigurationSection monolithSectionPath = null;
+        boolean monolithIndexedSearch = false;
+
+        if (monolithPath == null || monolithPath.isEmpty() == true) {
+            monolithSectionPath = config.getConfigurationSection("players." + playerName + ".monoliths");
+        } else {
+            monolithSectionPath = config.getConfigurationSection("players." + playerName + ".monoliths." + monolithPath);
+            monolithIndexedSearch = true;
+        }
+        if (monolithIndexedSearch == false) {
             for (String uuidString : monolithSectionPath.getKeys(false)) {
                 ConfigurationSection monolithSection = monolithSectionPath.getConfigurationSection(uuidString);
-                if (monolithSection != null && monolithSection.getString(key) != null) {
+                if (monolithSection != null && monolithSection.getString(key).isBlank() != true) {
                     return String.valueOf(monolithSectionPath.getConfigurationSection(key).getValues(false));
                 }
+            }
+        } else if (monolithIndexedSearch == true){
+            ConfigurationSection monolithSection = monolithSectionPath.getConfigurationSection(key);
+            if (monolithSection.getString(key).isBlank() != true) {
+                return String.valueOf(monolithSectionPath.getConfigurationSection(key).getValues(false));
             }
         }
         return null;
@@ -139,6 +152,10 @@ public class StorageManager {
             Bukkit.getLogger().info(MessageUtils.getColoredMessage("&cNo se encontraron los datos solicitados."));
             return false;
         }
+    }
+
+    public String getMonolithData(String playerName, String key) {
+        return getMonolithData(playerName, key, null);
     }
 
 
